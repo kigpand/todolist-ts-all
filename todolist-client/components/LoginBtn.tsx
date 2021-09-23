@@ -49,7 +49,7 @@ const LoginBtn = ({ id, pw, onJoinDialog } : Props) =>{
     const router = useRouter();
 
     const onLoginSubmit = async () =>{
-        await axios.post(`${url}/user/login`, { id: id, pw: pw }).then((e)=>{
+        await axios.post(`${url}/user/login`, {id: id, pw: pw}).then((e)=>{
             console.log(e.data);
         });
         // router.push('/TodoList')
