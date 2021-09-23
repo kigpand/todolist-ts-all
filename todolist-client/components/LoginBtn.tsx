@@ -3,6 +3,7 @@ import { useRouter } from 'next/dist/client/router';
 import React from 'react';
 import styled from 'styled-components';
 import { LoginType } from '../pages/Login';
+import { url } from '../config/config';
 
 const BtnWrapper = styled.div`
     width : 100%;
@@ -47,11 +48,10 @@ interface Props extends LoginType{
 const LoginBtn = ({ id, pw, onJoinDialog } : Props) =>{
     const router = useRouter();
 
-    const onLoginSubmit = () =>{
-        axios.get('http://localhost:3888/login').then((e)=>{
+    const onLoginSubmit = async () =>{
+        await axios.post(`${url}/user/login`).then((e)=>{
             console.log(e.data);
         });
-        
         // router.push('/TodoList')
     }
 

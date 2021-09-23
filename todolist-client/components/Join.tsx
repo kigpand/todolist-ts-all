@@ -1,5 +1,7 @@
+import axios from 'axios';
 import { ChangeEvent, ChangeEventHandler, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { url } from '../config/config';
 import { LoginType } from '../pages/Login';
 
 const JoinWrapper = styled.div`
@@ -118,7 +120,18 @@ const Join = ({ closeJoinDialog }: Props) =>{
     const onJoinBtn = () =>{
         if(userInfo.id !== "" && userInfo.pw !== "" && userInfo.nickName !== ""){
             if(pwCheckFlag){
-                alert("회원가입이 완료되었습니다");
+                axios.post(`${url}/user/join`, { userInfo : userInfo })
+                    .then((e)=>{
+                        if(e.data.result){
+                            alert("회원가입이 완료되었습니다");
+                        }
+                        else{
+                            alert("회원가입에 실패하였습니다");
+                        }
+                    })
+                    .catch((err)=>{
+                        console.error(err);
+                    })
                 closeJoinDialog();
                 return;
             }
