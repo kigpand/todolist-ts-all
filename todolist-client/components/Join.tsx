@@ -9,6 +9,7 @@ const JoinWrapper = styled.div`
     height : 100%;
     position : absolute;
     z-index : 10;
+    font-family: "HSYuji-Regular";
     background-color : rgba(0,0,0,0.4);
     display : flex;
     align-items: center;
@@ -41,11 +42,33 @@ const JoinWrapper = styled.div`
                 width : 90%;
                 height : 30px;
                 border : 1px solid lightgray;
+                outline : none;
             }
 
             .failPw{
                 font-size : 0.5rem;
                 color : red;
+            }
+
+            .idCheck{
+                display : flex;
+                input {
+                    width : 70%;
+                    margin-right : 1rem;
+                }
+
+                button{
+                    font-family: "HSYuji-Regular";
+                    border : 1px solid lightgray;
+                    border-radius: 4px;
+                    background-color : white;
+                    outline: none;
+
+                    &:hover{
+                        cursor: pointer;
+                        background-color : whitesmoke;
+                    }
+                }
             }
         }
 
@@ -98,6 +121,7 @@ interface Props{
 const Join = ({ closeJoinDialog }: Props) =>{
 
     const [userInfo, setUserInfo] = useState<UserInfo>({ id: "", nickName: "", pw: ""});
+    const [idCheck, setIdCheck] = useState<boolean>(false);
     const [pwCheck, setPwCheck] = useState<string>();
     const [pwCheckFlag, setPwCheckFlag] = useState<boolean>();
 
@@ -117,9 +141,32 @@ const Join = ({ closeJoinDialog }: Props) =>{
         setPwCheck(e.target.value);
     }
 
+    const onIdCheck = () =>{
+        if(userInfo.id === ""){
+            alert("공백은 입력할 수 없습니다!");
+        }
+        else{
+            axios.post(`${url}/user/idCheck`, {id : userInfo.id })
+                .then((e)=>{
+                    if(e.data.result){
+                        alert("아이디가 사용가능합니다!")
+                        setIdCheck(true);
+                    }
+                    else{
+                        alert("아이디가 존재합니다")
+                        setIdCheck(false);
+                    }
+                })
+        }
+    }
+
     const onJoinBtn = () =>{
         if(userInfo.id !== "" && userInfo.pw !== "" && userInfo.nickName !== ""){
             if(pwCheckFlag){
+                if(!idCheck) {
+                    alert("아이디 중복확인을 해주세요");
+                    return;
+                }
                 axios.post(`${url}/user/join`, { userInfo : userInfo })
                     .then((e)=>{
                         if(e.data.result){
@@ -167,7 +214,10 @@ const Join = ({ closeJoinDialog }: Props) =>{
                 <div className="title">회원가입</div>
                 <div className="inputWrapper">
                     <div>아이디</div>
-                    <input type="text" onChange={(e)=>onJoinId(e)}></input>
+                    <div className="idCheck">
+                        <input type="text" onChange={(e)=>onJoinId(e)}></input>
+                        <button onClick={onIdCheck}>중복확인</button>
+                    </div>
                 </div>
                 <div className="inputWrapper">
                     <div>닉네임</div>

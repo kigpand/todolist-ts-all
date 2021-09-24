@@ -19,11 +19,20 @@ router.post('/login', (req, res) =>{
     })
 });
 
-router.post('/logout', (req,res)=>{
-    // if(req.session){
-    //     req.session.destroy();
-    // }
-    console.log(req.user);
+router.post('/idCheck', (req,res)=>{
+    const id = req.body.id;
+    conn.query(`select * from user where user_id ="${id}";`,(err, rows, fields)=>{
+        if(rows.length === 0){
+            res.json({
+                result: true,
+            })
+        }
+        else{
+            res.json({
+                result: false,
+            })
+        }
+    })
 })
 
 router.post('/join', (req, res)=>{
