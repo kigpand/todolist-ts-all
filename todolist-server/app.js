@@ -1,31 +1,29 @@
 const express = require("express");
 const cors = require('cors');
-const passport = require('passport');
-const passportConfig = require('./passport');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 
-const userRouter = require('./database/user');
-const boardRouter = require('./database/board');
+const userRouter = require('./routes/user');
+const boardRouter = require('./routes/board');
 const dbConnect = require('./database/sql');
 
 const app = express();
 dotenv.config();
 dbConnect.connect();
 
-passportConfig();
-
 app.use(express.urlencoded({ extended : true }));
 app.use(express.json());
-app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(cookieParser());
 app.use(session({
-    saveUninitialized: false,
+    key: 'todolistData',
+    secret: "todolistSecret",
     resave: false,
-    secret: process.env.COOKIE_SECRET
-}));
-app.use(passport.initialize());
-app.use(passport.session());
+    saveUninitialized: false,
+    cookie:{
+        maxAge: 60 * 60 * 24000
+    }
+}))
 app.use(cors({
     origin: ['http://localhost:3000'],
     credentials: true,

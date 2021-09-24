@@ -10,7 +10,17 @@ export interface TodoListType {
     item : TodoItemType[];
 }
 
+interface UserInfo {
+    id : string;
+    nick : string;
+}
+
 export const todoListArray = atom<TodoListType>({
     key: "todoListArray",
     default: { date : new Date(), item : []}
+})
+
+export const userInfo = atom<UserInfo>({
+    key: "userInfo",
+    default: { id: "", nick: ""}
 })

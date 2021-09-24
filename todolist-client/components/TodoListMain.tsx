@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { todoListArray, TodoItemType } from '../recoil/recoil';
+import { todoListArray, TodoItemType, userInfo } from '../recoil/recoil';
 import TodoListItem from './TodoListItem';
 import { dummyArray } from '../pages/dummy';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import { useRouter } from 'next/dist/client/router';
 
 const MainWrapper = styled.div`
     background-color : white;
@@ -60,6 +61,8 @@ interface Props{
 
 const TodoListMain = ({ onOpenDialog }: Props) =>{
 
+    const router = useRouter();
+    const [userData, setUserData] = useRecoilState(userInfo);    
     const [todoList, setTodoList] = useRecoilState(todoListArray);
 
     useEffect(()=>{
@@ -71,9 +74,17 @@ const TodoListMain = ({ onOpenDialog }: Props) =>{
         setTodoList({ date : todoList.date, item : [...result] });
     }
 
+    const onLogOut = () =>{
+        setUserData({ id: "", nick: ""});
+        sessionStorage.setItem("user_id", "");
+        sessionStorage.setItem("user_nick", "");
+        router.push('/Main');
+    }
+
 
     return(
         <MainWrapper>
+            <div onClick={onLogOut}>로그아웃</div>
             <div className = "title">
                 {todoList.date.getFullYear()}년 {todoList.date.getMonth()}월 {todoList.date.getDate()}일
                 <div className = "line" />

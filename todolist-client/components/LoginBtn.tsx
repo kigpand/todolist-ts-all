@@ -4,6 +4,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { LoginType } from '../pages/Login';
 import { url } from '../config/config';
+import { useRecoilState } from 'recoil';
+import { userInfo } from '../recoil/recoil';
 
 const BtnWrapper = styled.div`
     width : 100%;
@@ -47,12 +49,15 @@ interface Props extends LoginType{
 
 const LoginBtn = ({ id, pw, onJoinDialog } : Props) =>{
     const router = useRouter();
+    const [userData, setUserData] = useRecoilState(userInfo);
 
     const onLoginSubmit = async () =>{
-        await axios.post(`${url}/user/login`, { id: id, pw: pw }).then((e)=>{
-            console.log(e.data);
+        await axios.post(`${url}/user/login`, {id: id, pw: pw}).then((e)=>{
+            sessionStorage.setItem("user_id", e.data.result.id);
+            sessionStorage.setItem("user_nick", e.data.result.nick);
+            setUserData({ id: e.data.result.id, nick: e.data.result.nick });
         });
-        // router.push('/TodoList')
+        router.push('/Main')
     }
 
     const onJoin = () =>{

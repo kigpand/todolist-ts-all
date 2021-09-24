@@ -39,7 +39,6 @@ const HomeWrapper = styled.div`
   
 `;
 const Home = () =>{
-
   return(
     <HomeWrapper>
       <div className = "title">
@@ -47,7 +46,7 @@ const Home = () =>{
         <div>준비에 실패하는 것은 실패를 준비하는 것이다.</div>
         <div>- 벤자민 프랭클린 -</div>
       </div>
-      <Link href="/Login"><a className="loginBtn">Login</a></Link>
+      <Link href="/Main"><a className="loginBtn">Login</a></Link>
     </HomeWrapper>
   )
 }
