@@ -53,9 +53,14 @@ const LoginBtn = ({ id, pw, onJoinDialog } : Props) =>{
 
     const onLoginSubmit = async () =>{
         await axios.post(`${url}/user/login`, {id: id, pw: pw}).then((e)=>{
-            sessionStorage.setItem("user_id", e.data.result.id);
-            sessionStorage.setItem("user_nick", e.data.result.nick);
-            setUserData({ id: e.data.result.id, nick: e.data.result.nick });
+            if(e.data.result === "fail"){
+                alert("아이디와 비밀번호를 확인해주세요!");
+            }
+            else{
+                sessionStorage.setItem("user_id", e.data.result.id);
+                sessionStorage.setItem("user_nick", e.data.result.nick);
+                setUserData({ id: e.data.result.id, nick: e.data.result.nick });
+            }
         });
         router.push('/Main')
     }

@@ -7,8 +7,7 @@ router.post('/login', (req, res) =>{
     const id = req.body.id;
     const pw = req.body.pw;
     conn.query(`select * from user where (user_id ="${id}" AND user_pw = "${pw}")`, (err,rows, fields) =>{
-        if(rows.length){
-            req.session.LoginData = req.body;
+        if(rows.length !== 0){
             const result = { id: rows[0].user_id, nick: rows[0].user_nick }
             res.json({
                 result : result
