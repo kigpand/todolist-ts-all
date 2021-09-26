@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { todoListArray } from '../recoil/recoil';
+import { listDate, todoListArray } from '../recoil/recoil';
 
 const SubStyled = styled.div`
     z-index : 10;
@@ -48,20 +48,17 @@ const TodoListSub = () =>{
     const [onCalendar, setOnCalendar] = useState<boolean>(false);
 
     const [todoList, setTodoList] = useRecoilState(todoListArray);
+    const [listDataValue, setListDateValue] = useRecoilState(listDate);
 
     const onToggleCalendar = () =>{
         setOnCalendar(!onCalendar);
     }
 
     const onChangeDate = (e: Date) =>{
-        setTodoList({ date : e, item : []})
+        const date = `${e.getFullYear()}-${e.getMonth()+1}-${e.getDate()}`
+        setListDateValue(date);
         setOnCalendar(false);
     }
-
-    useEffect(()=>{
-        console.log(todoList)
-        console.log(todoList.date.getMonth());
-    },[todoList])
 
     return(
         <SubStyled>

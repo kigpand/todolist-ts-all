@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { todoListArray, TodoItemType, userInfo, listDate } from '../recoil/recoil';
 import TodoListItem from './TodoListItem';
@@ -60,23 +60,33 @@ interface Props{
     onOpenDialog: () => void;
 }
 
+interface Items{
+    id: number;
+    user_id: string;
+    content_date: string;
+    content: string;
+}
+
 const TodoListMain = ({ onOpenDialog }: Props) =>{
 
     const router = useRouter();
     const [userData, setUserData] = useRecoilState(userInfo);
-    const listDateValue = useRecoilState(listDate);    
+    const listDateValue = useRecoilValue(listDate);    
     const [todoList, setTodoList] = useRecoilState(todoListArray);
 
     useEffect(()=>{
-        setTodoList({ date : new Date(Date.parse(listDateValue[0])), item: [...todoList.item]});
         axios.post(`${url}/board/loadBoard`, { userId: userData.id, date: listDateValue })
         .then((v)=>{
-            console.log(v.data);
+            const item: TodoItemType[] = [];
+            v.data.result.map((items: Items)=>{
+                item.push({ id: items.id, content: items.content });
+            })
+            setTodoList({ date: new Date(Date.parse(listDateValue)), item: [...item] })
         })
         .catch((err)=>{
             console.log(err);
         })
-    },[]);
+    },[listDateValue]);
 
     const onItemRemove = (id : number): void =>{
         const result: TodoItemType[] = todoList.item.filter((item) => item.id !== id)
@@ -95,7 +105,7 @@ const TodoListMain = ({ onOpenDialog }: Props) =>{
         <MainWrapper>
             <div onClick={onLogOut}>로그아웃</div>
             <div className = "title">
-                {todoList.date.getFullYear()}년 {todoList.date.getMonth()}월 {todoList.date.getDate()}일
+                {todoList.date.getFullYear()}년 {todoList.date.getMonth()+1}월 {todoList.date.getDate()}일
                 <div className = "line" />
             </div>
             <div className="lists">
