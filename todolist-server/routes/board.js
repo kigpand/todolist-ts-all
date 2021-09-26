@@ -3,9 +3,11 @@ const router = express.Router();
 
 const conn = require('../database/sql');
 
-router.get('/loadBoard', (req,res)=>{
+router.post('/loadBoard', (req,res)=>{
     const user_id = req.body.userId;
     const date = req.body.date;
+    console.log(user_id);
+    console.log(date);
     conn.query(`select * from board where (user_id ="${user_id}" AND content_date = "${date}")`, (err, rows, fields) =>{
         res.json({ result : rows });
     })

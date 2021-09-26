@@ -17,7 +17,12 @@ interface UserInfo {
 
 export const todoListArray = atom<TodoListType>({
     key: "todoListArray",
-    default: { date : new Date(), item : []}
+    default: { date : new Date(""), item : []}
+})
+
+export const listDate = atom<string>({
+    key: "listDate",
+    default: `${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()}`
 })
 
 export const userInfo = atom<UserInfo>({

@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { todoListArray, TodoItemType, userInfo } from '../recoil/recoil';
+import { todoListArray, TodoItemType, userInfo, listDate } from '../recoil/recoil';
 import TodoListItem from './TodoListItem';
-import { dummyArray } from '../pages/dummy';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { useRouter } from 'next/dist/client/router';
+import axios from 'axios';
+import { url } from '../config/config';
 
 const MainWrapper = styled.div`
     background-color : white;
@@ -62,11 +63,19 @@ interface Props{
 const TodoListMain = ({ onOpenDialog }: Props) =>{
 
     const router = useRouter();
-    const [userData, setUserData] = useRecoilState(userInfo);    
+    const [userData, setUserData] = useRecoilState(userInfo);
+    const listDateValue = useRecoilState(listDate);    
     const [todoList, setTodoList] = useRecoilState(todoListArray);
 
     useEffect(()=>{
-        setTodoList({ date : new Date(), item : [...dummyArray] });
+        setTodoList({ date : new Date(Date.parse(listDateValue[0])), item: [...todoList.item]});
+        axios.post(`${url}/board/loadBoard`, { userId: userData.id, date: listDateValue })
+        .then((v)=>{
+            console.log(v.data);
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     },[]);
 
     const onItemRemove = (id : number): void =>{

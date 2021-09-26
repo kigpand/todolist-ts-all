@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { todoListArray } from '../recoil/recoil';
 
@@ -58,6 +58,11 @@ const TodoListSub = () =>{
         setOnCalendar(false);
     }
 
+    useEffect(()=>{
+        console.log(todoList)
+        console.log(todoList.date.getMonth());
+    },[todoList])
+
     return(
         <SubStyled>
             <button className="addCalendar" onClick={onToggleCalendar}>
@@ -65,7 +70,7 @@ const TodoListSub = () =>{
             </button>
             <div className="calendarWrapper">
                 { onCalendar && <div className="calendar">
-                    <Calendar onChange={onChangeDate} value={todoList.date}/>
+                    <Calendar onChange={onChangeDate} calendarType="Hebrew" value={todoList.date}/>
                 </div>}
             </div>
         </SubStyled>
