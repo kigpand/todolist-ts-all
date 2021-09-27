@@ -18,14 +18,13 @@ router.post('/addBoard',(req, res)=>{
             res.json({ result : false });
         }
         else{
-            res.json({ result : true });
+            res.json({ result : true, id: rows.insertId });
         }
     })
 })
 
 router.post('/deleteBoard', (req,res)=>{
     const id = req.body.id;
-    console.log(id);
     conn.query(`DELETE FROM board WHERE ( id = "${id}")`, (err, rows, fields)=>{
         if(err){
             res.json({ result : false });

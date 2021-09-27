@@ -7,53 +7,61 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { useRouter } from 'next/dist/client/router';
 import axios from 'axios';
 import { url } from '../config/config';
+import TodoListSub from './TodoListSub';
 
 const MainWrapper = styled.div`
-    background-color : white;
-    width : 400px;
-    height : 600px;
-    border-radius : 20px;
-    z-index : 1;
-    display : flex;
-    flex-direction : column;
 
-    .line{
-        margin : 1rem 0 0 1rem;
-        width : 100%;
-        height : 3px;
-        background-color : lightgray;
-    }
+    margin-left : 10%;
+    display: flex;
 
-    .title{
-        width : 80%;
-        height : 10%;
-        margin : 1rem 0 0 1rem;
-        font-size : 1.2rem;
-        font-weight : bold;
-    }
-
-    .lists{
-        width : 100%;
-        height : 80%;
-    }
-
-    .addBtn{
-        width : 100%;
-        height : 10%;
+    .body{
+        background-color : white;
+        border : 2px solid #EDFF75;
+        width : 600px;
+        height : 600px;
+        border-radius : 20px;
+        z-index : 1;
         display : flex;
-        align-items: center;
-        justify-content : center;
+        flex-direction : column;
 
-        .addIcon{
-            font-size : 2rem;
-            color : green;
+        .line{
+            margin : 1rem 0 0 1rem;
+            width : 100%;
+            height : 3px;
+            background-color : lightgray;
+        }
 
-            &:hover{
-                color : darkgreen;
-                cursor : pointer;
+        .title{
+            width : 80%;
+            height : 10%;
+            margin : 1rem 0 0 1rem;
+            font-size : 1.2rem;
+            font-weight : bold;
+        }
+
+        .lists{
+            width : 100%;
+            height : 80%;
+        }
+
+        .addBtn{
+            width : 100%;
+            height : 10%;
+            display : flex;
+            align-items: center;
+            justify-content : center;
+
+            .addIcon{
+                font-size : 2rem;
+                color : green;
+
+                &:hover{
+                    color : darkgreen;
+                    cursor : pointer;
+                }
             }
         }
-    }
+    }   
 `;
 
 interface Props{
@@ -88,7 +96,7 @@ const TodoListMain = ({ onOpenDialog }: Props) =>{
         })
     },[listDateValue, setTodoList, userData.id]);
 
-    const onItemRemove = (id : number, userId: string): void =>{
+    const onItemRemove = (id : number): void =>{
         axios.post(`${url}/board/deleteBoard`,{ id: id })
         .then((v)=>{
             if(v.data.result){
@@ -108,21 +116,22 @@ const TodoListMain = ({ onOpenDialog }: Props) =>{
         router.push('/Main');
     }
 
-
     return(
         <MainWrapper>
-            <div onClick={onLogOut}>로그아웃</div>
-            <div className = "title">
-                {todoList.date.getFullYear()}년 {todoList.date.getMonth()+1}월 {todoList.date.getDate()}일
-                <div className = "line" />
+            <div className="body">
+                <div className = "title">
+                    {todoList.date.getFullYear()}년 {todoList.date.getMonth()+1}월 {todoList.date.getDate()}일
+                    <div className = "line" />
+                </div>
+                <div className="lists">
+                    {todoList.item.map((v) =>{
+                        return( 
+                        <TodoListItem key={v.id} list={v} onItemRemove={onItemRemove}/>
+                    )})}
+                </div>
+                <div className="addBtn" onClick={onOpenDialog}><AddCircleOutlineIcon className="addIcon"/></div>
             </div>
-            <div className="lists">
-                {todoList.item.map((v) =>{
-                    return( 
-                    <TodoListItem key={v.id} list={v} onItemRemove={onItemRemove}/>
-                )})}
-            </div>
-            <div className="addBtn" onClick={onOpenDialog}><AddCircleOutlineIcon className="addIcon"/></div>
+            <TodoListSub />
         </MainWrapper>
     )
 }

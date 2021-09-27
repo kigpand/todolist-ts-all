@@ -93,13 +93,12 @@ const TodoListDialog = ({ onCloseDialog } : Props) =>{
     const textRef= useRef<HTMLInputElement>();
 
     const onSuccessBtn = () =>{
-        const id = todoList.item.length ? todoList.item[todoList.item.length-1].id + 1 : 1;
         const value = textRef.current.value;
         const boardInfo = { userId: userData.id, date: listDateValue, content: value };
         axios.post(`${url}/board/addBoard`,{...boardInfo})
         .then((e)=>{
             if(e.data.result){
-                setTodoList({ date : new Date(), item: [...todoList.item, { id : id, userId: userData.id, content : value}]});
+                setTodoList({ date : new Date(Date.parse(listDateValue)), item: [...todoList.item, { id : e.data.id, userId: userData.id, content : value}]});
             }
             else{
                 alert("게시글 등록에 실패했습니다");

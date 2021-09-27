@@ -27,7 +27,7 @@ function MyApp({ Component, pageProps }) {
         </Head>
         <Component {...pageProps} />
         <div className="background">
-                <Image src={BACKGROUND} alt = "배경" layout="fill"/>
+            <Image src={BACKGROUND} alt = "배경" layout="fill"/>
         </div>
       </AppWrapper>
     </RecoilRoot>
