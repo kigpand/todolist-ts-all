@@ -10,9 +10,11 @@ const SubStyled = styled.div`
     z-index : 10;
     display : flex;
     flex-direction : column;
-    margin-bottom : 1rem;
 
     .addCalendar{
+        display : flex;
+        align-items: center;
+        justify-content: center;
         width : 60px;
         height : 60px;
         border-radius : 4px;

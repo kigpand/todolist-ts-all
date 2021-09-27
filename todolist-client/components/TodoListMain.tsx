@@ -131,7 +131,7 @@ const TodoListMain = ({ onOpenDialog }: Props) =>{
                 </div>
                 <div className="addBtn" onClick={onOpenDialog}><AddCircleOutlineIcon className="addIcon"/></div>
             </div>
-            <TodoListSub />
+            <TodoListSub onLogOut ={onLogOut}/>
         </MainWrapper>
     )
 }
