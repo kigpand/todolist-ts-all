@@ -1,7 +1,9 @@
+import axios from 'axios';
 import { useRef } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { todoListArray } from '../recoil/recoil';
+import { url } from '../config/config';
+import { listDate, todoListArray, userInfo } from '../recoil/recoil';
 
 const DialogWrapper = styled.div`
     position : absolute;
@@ -86,12 +88,23 @@ interface Props{
 const TodoListDialog = ({ onCloseDialog } : Props) =>{
 
     const [todoList, setTodoList] = useRecoilState(todoListArray);
+    const userData = useRecoilValue(userInfo);
+    const listDateValue = useRecoilValue(listDate);
     const textRef= useRef<HTMLInputElement>();
 
     const onSuccessBtn = () =>{
-        const id = todoList.item[todoList.item.length-1].id + 1;
+        const id = todoList.item.length ? todoList.item[todoList.item.length-1].id + 1 : 1;
         const value = textRef.current.value;
-        setTodoList({ date : new Date(), item: [...todoList.item, { id : id, content : value}]});
+        const boardInfo = { userId: userData.id, date: listDateValue, content: value };
+        axios.post(`${url}/board/addBoard`,{...boardInfo})
+        .then((e)=>{
+            if(e.data.result){
+                setTodoList({ date : new Date(), item: [...todoList.item, { id : id, userId: userData.id, content : value}]});
+            }
+            else{
+                alert("게시글 등록에 실패했습니다");
+            }
+        })
         onCloseDialog();
     }
 

@@ -79,18 +79,26 @@ const TodoListMain = ({ onOpenDialog }: Props) =>{
         .then((v)=>{
             const item: TodoItemType[] = [];
             v.data.result.map((items: Items)=>{
-                item.push({ id: items.id, content: items.content });
+                item.push({ id: items.id, userId: items.user_id, content: items.content });
             })
             setTodoList({ date: new Date(Date.parse(listDateValue)), item: [...item] })
         })
         .catch((err)=>{
             console.log(err);
         })
-    },[listDateValue]);
+    },[listDateValue, setTodoList, userData.id]);
 
-    const onItemRemove = (id : number): void =>{
-        const result: TodoItemType[] = todoList.item.filter((item) => item.id !== id)
-        setTodoList({ date : todoList.date, item : [...result] });
+    const onItemRemove = (id : number, userId: string): void =>{
+        axios.post(`${url}/board/deleteBoard`,{ id: id })
+        .then((v)=>{
+            if(v.data.result){
+                const result: TodoItemType[] = todoList.item.filter((item) => item.id !== id)
+                setTodoList({ date : todoList.date, item : [...result] });
+            }
+            else{
+                alert("게시글 삭제에 실패했습니다");
+            }
+        })
     }
 
     const onLogOut = () =>{

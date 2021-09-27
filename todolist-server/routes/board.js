@@ -12,7 +12,7 @@ router.post('/loadBoard', (req,res)=>{
 });
 
 router.post('/addBoard',(req, res)=>{
-    const boardInfo = req.body.boardInfo;
+    const boardInfo = req.body;
     conn.query(`INSERT INTO board(user_id, content_date, content) values ("${boardInfo.userId}", "${boardInfo.date}", "${boardInfo.content}")`, (err, rows, fields)=>{
         if(err){
             res.json({ result : false });
@@ -23,8 +23,9 @@ router.post('/addBoard',(req, res)=>{
     })
 })
 
-router.delete('/deleteBoard', (req,res)=>{
+router.post('/deleteBoard', (req,res)=>{
     const id = req.body.id;
+    console.log(id);
     conn.query(`DELETE FROM board WHERE ( id = "${id}")`, (err, rows, fields)=>{
         if(err){
             res.json({ result : false });

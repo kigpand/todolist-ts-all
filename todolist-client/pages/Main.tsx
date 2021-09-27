@@ -12,7 +12,7 @@ const Main = () =>{
         const id: string = sessionStorage.getItem('user_id') ? sessionStorage.getItem('user_id') : "";
         const nick: string = sessionStorage.getItem("user_nick") ? sessionStorage.getItem("user_nick") : "";
         setUserData({ id: id, nick: nick});
-    },[])
+    },[setUserData])
 
     return(
         <div>

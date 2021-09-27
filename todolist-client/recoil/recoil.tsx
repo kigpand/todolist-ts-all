@@ -2,6 +2,7 @@ import { atom } from 'recoil';
 
 export interface TodoItemType {
     id : number;
+    userId: string;
     content : string;
 }
 

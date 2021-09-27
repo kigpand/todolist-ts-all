@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 interface Props {
     list : TodoItemType;
-    onItemRemove : (id : number)=> void;
+    onItemRemove : (id : number, userId: string)=> void;
 }
 
 interface TodoState{
@@ -63,7 +63,7 @@ const TodoListItem = ({ list, onItemRemove }: Props) =>{
         <ItemWrapper fontColor={todoState.fontColor} checkColor={todoState.checkColor}>
             <CheckCircleOutlineIcon className="checkIcon" onClick={onListCheck}/>
             <div className="content">{list.content}</div>
-            <HighlightOffIcon className="closeBtn" onClick={()=>onItemRemove(list.id)} />
+            <HighlightOffIcon className="closeBtn" onClick={()=>onItemRemove(list.id, list.userId)} />
         </ItemWrapper>
     )
 }
