@@ -6,6 +6,10 @@ import TodoListTime from './TodoListTime';
 const SubWrapper = styled.div`
     display: flex;
     flex-direction: column;
+
+    @media only screen and (max-width: 480px) {
+        flex-direction: row;
+    }
 `
 const TodoListSub = ({ onLogOut }) =>{
     return(

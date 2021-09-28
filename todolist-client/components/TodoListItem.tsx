@@ -46,6 +46,10 @@ const ItemWrapper = styled.div<TodoState>`
             color : red;
         }
     }
+
+    @media only screen and (max-width: 1000px) {
+        width : 80%;
+    }
 `;
 const TodoListItem = ({ list, onItemRemove }: Props) =>{
     const [todoState, setTodoState] = useState<TodoState>({ fontColor : "black", checkColor : "gray"})

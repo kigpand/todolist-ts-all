@@ -22,11 +22,22 @@ const LogOutWrapper = styled.div`
             cursor : pointer;
         }
     }
+
+    @media only screen and (max-width: 1000px) {
+        .logOutBtn{
+            width: 40px;
+            height: 40px;
+
+            .ExitIcon{
+                font-size: 1.5rem;
+            }
+        }
+    }
 `;
 const TodoListLogOutBtn = ({ onLogOut }) =>{
     return(
         <LogOutWrapper>
-            <div className="logOutBtn" onClick={onLogOut}>
+            <div className="logOutBtn" onClick={onLogOut} >
                 <ExitToApp className="ExitIcon"/>
             </div>
         </LogOutWrapper>

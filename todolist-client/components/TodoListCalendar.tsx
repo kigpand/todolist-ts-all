@@ -33,7 +33,11 @@ const SubStyled = styled.div`
 
     .calendarWrapper{
         position : relative;
+        display: flex;
+        justify-content: flex-start;
         .calendar{
+            top: 0;
+            left: 0;
             position : absolute;
         }
     }
@@ -44,6 +48,38 @@ const SubStyled = styled.div`
         &:hover{
             color : darkblue;
             cursor : pointer;
+        }
+    }
+
+    @media only screen and (max-width: 480px) {
+        flex-direction: row;
+
+        .addCalendar{
+            width: 40px;
+            height: 40px;
+
+            .calendarIcon{
+                font-size: 1.5rem;
+            }
+        }
+
+        .calendarWrapper{
+            position: static;
+            .calendar{
+                position : absolute;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 50%;
+        
+                .react-calendar {
+                    width: 100%;
+                    height : 100%;
+                    border: 1px solid #a0a096;
+                    font-family: Arial, Helvetica, sans-serif;
+                    line-height: 1.125em;
+                }
+            }
         }
     }
 `;
@@ -71,7 +107,7 @@ const TodoListCalendar = () =>{
             </button>
             <div className="calendarWrapper">
                 { onCalendar && <div className="calendar">
-                    <Calendar onChange={onChangeDate} calendarType="Hebrew" value={todoList.date}/>
+                    <Calendar onChange={onChangeDate} calendarType="Hebrew" value={todoList.date} />
                 </div>}
             </div>
         </SubStyled>

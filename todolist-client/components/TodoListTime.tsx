@@ -2,8 +2,18 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const TimeWrapper = styled.div`
+    width : 200px;
     margin-left : 1rem;
     font-size : 2rem;
+
+    @media only screen and (max-width: 1000px) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100px;
+        height: 40px;
+        font-size: 1rem;
+    }
 `;
 const TodoListTime = () =>{
 

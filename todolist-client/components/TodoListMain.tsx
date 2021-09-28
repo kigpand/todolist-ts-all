@@ -61,7 +61,18 @@ const MainWrapper = styled.div`
                 }
             }
         }
-    }   
+    }
+    
+    @media only screen and (max-width: 480px) {
+        width: 100%;
+        margin : 0;
+        flex-direction: column-reverse;
+
+        .body{
+            width: 100%;
+            height: 600px;
+        }
+      }
 `;
 
 interface Props{

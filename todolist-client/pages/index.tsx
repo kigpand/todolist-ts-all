@@ -36,7 +36,12 @@ const HomeWrapper = styled.div`
       background-color : green;
     }
   }
-  
+
+  @media only screen and (max-width: 1000px) {
+    .title{
+      font-size: 0.8rem;
+    }
+  }  
 `;
 const Home = () =>{
   return(
