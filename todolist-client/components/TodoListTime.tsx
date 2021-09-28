@@ -20,10 +20,12 @@ const TodoListTime = () =>{
     const [time, setTime] = useState(new Date());
 
     useEffect(()=>{
-        setInterval(()=>{
+        const timer = setInterval(()=>{
             setTime(new Date());
         },1000);
-    },[time]);
+
+        return () => clearInterval(timer);
+    },[]);
 
 
     return(

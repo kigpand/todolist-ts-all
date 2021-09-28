@@ -51,7 +51,7 @@ const SubStyled = styled.div`
         }
     }
 
-    @media only screen and (max-width: 480px) {
+    @media only screen and (max-width: 1000px) {
         flex-direction: row;
 
         .addCalendar{

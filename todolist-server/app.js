@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 
 const userRouter = require('./routes/user');
 const boardRouter = require('./routes/board');
+const apiRouter = require('./routes/api');
 const dbConnect = require('./database/sql');
 
 const app = express();
@@ -19,6 +20,7 @@ app.use(cors({
 
 app.use('/user', userRouter);
 app.use('/board', boardRouter);
+app.use('/api', apiRouter);
 
 app.listen(3888, ()=>{
     console.log("서버 실행중");

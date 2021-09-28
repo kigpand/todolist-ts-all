@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import TodoListCalendar from './TodoListCalendar';
 import TodoListLogOutBtn from './TodoListLogOutBtn';
 import TodoListTime from './TodoListTime';
+import TodoListWeather from './TodoListWeather';
 
 const SubWrapper = styled.div`
     display: flex;
@@ -12,9 +13,12 @@ const SubWrapper = styled.div`
     }
 `
 const TodoListSub = ({ onLogOut }) =>{
+
+
     return(
         <SubWrapper>
             <TodoListTime />
+            <TodoListWeather />
             <TodoListLogOutBtn onLogOut={onLogOut} />
             <TodoListCalendar />
         </SubWrapper>

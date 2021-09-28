@@ -9,6 +9,7 @@
   "author": "ji",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.4",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
@@ -20,6 +21,6 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.13"
   }
 }
