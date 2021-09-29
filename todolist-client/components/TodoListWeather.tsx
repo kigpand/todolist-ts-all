@@ -23,10 +23,6 @@ const SliderWrapper = styled(Slider)`
         width: 200px;
         margin-left: 0.1rem;
 
-        @media only screen and (max-width: 1000px) {
-            font-size: 0.8rem;
-        }
-
         span{
             margin-left: 0.3rem;
         }
@@ -34,7 +30,10 @@ const SliderWrapper = styled(Slider)`
         .icon{
             margin-left: 1rem;
         }
-    }   
+    }
+    @media only screen and (max-width: 480px) {
+        font-size: 0.8rem;
+    }
 `
 
 const onIconChoose = (icon: string) =>{

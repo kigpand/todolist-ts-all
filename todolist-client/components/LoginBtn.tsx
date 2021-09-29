@@ -29,6 +29,8 @@ const BtnWrapper = styled.div`
     }
 
     .loginBtn{
+        margin-bottom: 1rem;
+        color: white;
         background-color : lightblue;
         &:hover{
             background-color : skyblue;
@@ -36,10 +38,7 @@ const BtnWrapper = styled.div`
     }
 
     .joinBtn{
-        background-color : #EDFF75;
-        &:hover{
-            background-color : yellow;
-        }
+        color: gray;
     }
 `;
 
@@ -72,7 +71,7 @@ const LoginBtn = ({ id, pw, onJoinDialog } : Props) =>{
     return(
         <BtnWrapper>
             <div className="loginBtn" onClick={onLoginSubmit}>로그인</div>
-            <div className="joinBtn" onClick={onJoin}>회원가입</div>
+            <div className="joinBtn" onClick={onJoin}>아이디가 없으신가요?</div>
         </BtnWrapper>
     )
 }

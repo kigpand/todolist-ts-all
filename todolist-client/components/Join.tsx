@@ -19,7 +19,7 @@ const JoinWrapper = styled.div`
         width : 400px;
         height : 600px;
         background-color : white;
-        border-radius : 20px;
+        border-radius : 4px;
         display : flex;
         flex-direction : column;
 

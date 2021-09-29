@@ -5,19 +5,22 @@ const InputWrapper = styled.div`
     display : flex;
     flex-direction : column;
     align-items : center;
+    margin-bottom: 4rem;
 
     .idContainer,
     .pwContainer{
         width : 70%;
         display : flex;
         flex-direction : column;
+        margin-bottom: 2rem;
 
         input{
             margin-top : 0.3rem;
             border : none;
+            border-bottom : 2px solid black;
             outline : none;
-            height : 40px;
-            background-color : whitesmoke;
+            height : 30px;
+            background-color : transparent;
         }
     }
 `;

@@ -6,7 +6,7 @@ const TimeWrapper = styled.div`
     margin-left : 1rem;
     font-size : 2rem;
 
-    @media only screen and (max-width: 1000px) {
+    @media only screen and (max-width: 480px) {
         display: flex;
         align-items: center;
         justify-content: center;

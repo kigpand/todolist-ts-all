@@ -8,8 +8,19 @@ const SubWrapper = styled.div`
     display: flex;
     flex-direction: column;
 
-    @media only screen and (max-width: 480px) {
+    .btns{
+        display: flex;
+        flex-direction: column;
+    }
+
+    @media only screen and (max-width: 1000px) {
+        justify-content: space-around;
         flex-direction: row;
+        align-items: center;
+
+        .btns{
+            flex-direction: row;
+        }
     }
 `
 const TodoListSub = ({ onLogOut }) =>{
@@ -19,8 +30,10 @@ const TodoListSub = ({ onLogOut }) =>{
         <SubWrapper>
             <TodoListTime />
             <TodoListWeather />
-            <TodoListLogOutBtn onLogOut={onLogOut} />
-            <TodoListCalendar />
+            <div className="btns">
+                <TodoListLogOutBtn onLogOut={onLogOut} />
+                <TodoListCalendar />
+            </div>
         </SubWrapper>
     )
 }

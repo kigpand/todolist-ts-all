@@ -18,12 +18,9 @@ const LoginWrapper = styled.div`
     position : relative;
 
     .loginForm{
-        background-color : lightgreen;
+        background-color : none;
         width : 450px;
         height : 600px;
-        border-radius : 8px;
-        box-shadow: 0px 0px 29px -2px #000000;
-        background-color : none;
         color : black;
         font-family: 'HSYuji-Regular';
         display : flex;
@@ -33,12 +30,7 @@ const LoginWrapper = styled.div`
 
         .title{
             font-size : 3rem;
-            margin-top : 3rem;
-        }
-
-        .otherLogin{
             margin : 3rem 0;
-            font-size : 2rem;
         }
     }
 `;
@@ -69,7 +61,6 @@ const Login = () =>{
             ? <Join closeJoinDialog = {closeJoinDialog}/>
             :<div className="loginForm">
                 <div className="title">WelCome!</div>
-                <div className="otherLogin">Other</div>
                 <LoginInput onSetId={onSetId} onSetPw={onSetPw}/>
                 <LoginBtn id = {loginInfo.id} pw = {loginInfo.pw} onJoinDialog={onJoinDialog}/>
             </div>

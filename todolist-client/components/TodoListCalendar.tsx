@@ -28,6 +28,7 @@ const SubStyled = styled.div`
 
         &:hover{
             cursor : pointer;
+            background-color: whitesmoke;
         }
     }
 
@@ -51,7 +52,7 @@ const SubStyled = styled.div`
         }
     }
 
-    @media only screen and (max-width: 1000px) {
+    @media only screen and (max-width: 480px) {
         flex-direction: row;
 
         .addCalendar{
